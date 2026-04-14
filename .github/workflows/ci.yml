@@ -37,15 +37,16 @@ jobs:
 
       # 5. Build + Test
       - name: Build and Test
-        run: mvn -B -f gateway-service/pom.xml clean verify
+        run: mvn -B -f gatewayservice/pom.xml clean verify
 
       # 6. SonarQube Analysis (optional)
       - name: SonarQube Scan
+        # запускается только если SONAR_TOKEN задан
         if: ${{ env.SONAR_TOKEN != '' }}
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -f gateway-service/pom.xml sonar:sonar \
+          mvn -f gatewayservice/pom.xml sonar:sonar \
             -Dsonar.projectKey=art-orient_inno-gateway-service \
             -Dsonar.organization=art-orient \
             -Dsonar.host.url=https://sonarcloud.io \
@@ -53,7 +54,7 @@ jobs:
 
       # 7. Build Docker Image
       - name: Build Docker image
-        run: docker build -t gateway_service_app gateway-service
+        run: docker build -t gateway_service_app gatewayservice
 
       # 8. Save Docker image as artifact
       - name: Save Docker image
