@@ -37,7 +37,7 @@ jobs:
 
       # 5. Build + Test
       - name: Build and Test
-        run: mvn -B -f gatewayservice/pom.xml clean verify
+        run: mvn -B clean verify
 
       # 6. SonarQube Analysis (optional)
       - name: SonarQube Scan
@@ -54,7 +54,7 @@ jobs:
 
       # 7. Build Docker Image
       - name: Build Docker image
-        run: docker build -t gateway_service_app gatewayservice
+        run: docker build -t gateway_service_app .
 
       # 8. Save Docker image as artifact
       - name: Save Docker image
