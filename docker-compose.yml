@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   api-gateway:
-    build: ./api-gateway
+    image: artorient/api-gateway:latest
     container_name: api_gateway
     ports:
       - "8085:8085"
@@ -18,7 +18,7 @@ services:
       - order-service
 
   auth-service:
-    build: ./auth-service
+    image: artorient/auth-service:latest
     container_name: auth_service_app
     ports:
       - "8081:8081"
@@ -46,7 +46,7 @@ services:
       - auth_postgres_data:/var/lib/postgresql/data
 
   user-service:
-    build: ./user-service
+    image: artorient/user-service:latest
     container_name: user_service_app
     ports:
       - "8080:8080"
@@ -84,7 +84,7 @@ services:
       - redis_data:/data
 
   order-service:
-    build: ./order-service
+    image: artorient/order-service:latest
     container_name: order_service_app
     ports:
       - "8082:8082"
