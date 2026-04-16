@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: ${MOCK_AUTH_URL}
+          predicates:
+            - Path=/api/auth/**
+
+        - id: user-service
+          uri: ${MOCK_USER_URL}
+          predicates:
+            - Path=/api/users/**
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
+
+services:
+  auth:
+    url: ${MOCK_AUTH_URL}
+  user:
+    url: ${MOCK_USER_URL}
+
+jwt:
+  secret: test-secret

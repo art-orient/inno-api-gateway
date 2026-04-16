@@ -1,3 +1,9 @@
 spring:
   application:
     name: gateway-service
+
+services:
+  auth:
+    url: http://auth-service
+  user:
+    url: http://user-service
