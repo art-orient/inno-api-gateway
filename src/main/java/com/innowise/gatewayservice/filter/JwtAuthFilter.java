@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
   private final JwtUtil jwtUtil;
+  private static final AntPathMatcher matcher = new AntPathMatcher();
 
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -46,9 +48,9 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
   }
 
   private boolean isPublicPath(String path) {
-    return path.equals("/api/auth/login")
-            || path.equals("/api/auth/register")
-            || path.equals("/api/register");
+    return matcher.match("/api/auth/login", path)
+            || matcher.match("/api/auth/credentials", path)
+            || matcher.match("/api/registrations", path);
   }
 
   private Mono<Void> unauthorized(ServerWebExchange exchange) {

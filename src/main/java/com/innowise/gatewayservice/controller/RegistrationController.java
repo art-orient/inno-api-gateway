@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/api/register")
+@RequestMapping("/api/registrations")
 @RequiredArgsConstructor
 public class RegistrationController {
 
