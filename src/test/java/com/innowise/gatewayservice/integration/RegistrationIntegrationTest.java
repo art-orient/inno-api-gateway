@@ -77,7 +77,7 @@ class RegistrationIntegrationTest {
             .setHeader("Content-Type", "application/json"));
 
     webTestClient.post()
-            .uri("/api/register")
+            .uri("/api/registrations")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(objectMapper.writeValueAsString(req()))
             .exchange()

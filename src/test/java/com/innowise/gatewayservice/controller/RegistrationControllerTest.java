@@ -35,7 +35,7 @@ class RegistrationControllerTest {
     );
 
     webTestClient.post()
-            .uri("/api/register")
+            .uri("/api/registrations")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(req)
             .exchange()
