@@ -40,6 +40,7 @@ public class UserClient {
   public Mono<Void> deleteUser(Long id) {
     return webClient.delete()
             .uri(userUrl + "/api/users/{id}", id)
+            .header("X-Saga-Delete", "true")
             .retrieve()
             .toBodilessEntity()
             .then();
