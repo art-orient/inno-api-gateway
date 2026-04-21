@@ -22,3 +22,8 @@ spring:
           uri: http://localhost:8082
           predicates:
             - Path=/api/orders/**
+
+        - id: registration
+          uri: no://op
+          predicates:
+            - Path=/api/registrations/**

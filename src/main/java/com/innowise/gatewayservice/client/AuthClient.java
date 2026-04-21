@@ -20,7 +20,7 @@ public class AuthClient {
 
   public Mono<Long> register(String username, String password) {
     return webClient.post()
-            .uri(authUrl + "/api/auth/register")
+            .uri(authUrl + "/api/auth/credentials")
             .contentType(MediaType.APPLICATION_JSON)
             .bodyValue(new RegisterPayload(username, password))
             .retrieve()

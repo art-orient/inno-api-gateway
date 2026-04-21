@@ -18,7 +18,7 @@ spring:
           predicates:
             - Path=/api/users/**
 
-        - id: order-service
-          uri: http://order-service:8082
-          predicates:
-            - Path=/api/orders/**
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping: TRACE

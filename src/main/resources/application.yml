@@ -4,6 +4,6 @@ spring:
 
 services:
   auth:
-    url: http://auth-service
+    url: http://auth-service:8081
   user:
-    url: http://user-service
+    url: http://user-service:8080
