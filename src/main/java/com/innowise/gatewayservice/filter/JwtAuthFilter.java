@@ -2,6 +2,7 @@ package com.innowise.gatewayservice.filter;
 
 import com.innowise.gatewayservice.util.JwtUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -15,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtAuthFilter implements GlobalFilter, Ordered {
 
   private final JwtUtil jwtUtil;
@@ -33,17 +35,18 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
       return unauthorized(exchange);
     }
-
+    log.warn("AUTH HEADER = {}", exchange.getRequest().getHeaders().getFirst("Authorization"));
+    log.info("JwtAuthFilter: path={}, Authorization={}", path, authHeader);
     String token = authHeader.substring(7);
+    log.info("JwtAuthFilter: token='{}'", token);
     if (!jwtUtil.isValid(token)) {
       return unauthorized(exchange);
     }
-
     String userId = jwtUtil.getUserId(token);
     ServerHttpRequest mutatedRequest = request.mutate()
             .header("X-User-Id", userId)
+            .header("Authorization", authHeader)
             .build();
-
     return chain.filter(exchange.mutate().request(mutatedRequest).build());
   }
 

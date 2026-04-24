@@ -16,6 +16,12 @@ public class RegistrationController {
 
   @PostMapping
   public Mono<ResponseEntity<Void>> register(@RequestBody RegistrationRequest request) {
-    return sagaService.register(request);
+    return sagaService.register(request)
+            .onErrorResume(RuntimeException.class, ex -> {
+              if (ex.getClass().getSimpleName().equals("AuthServiceException")) {
+                return Mono.just(ResponseEntity.badRequest().build());
+              }
+              return Mono.error(ex);
+            });
   }
 }
