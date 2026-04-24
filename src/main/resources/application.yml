@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: gateway-service
+
+services:
+  auth:
+    url: http://auth-service:8081
+  user:
+    url: http://user-service:8080
+
+logging:
+  level:
+    org.springframework.web.reactive.function.client: DEBUG
+    reactor.netty.http.client: DEBUG
