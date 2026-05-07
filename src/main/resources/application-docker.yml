@@ -20,7 +20,31 @@ spring:
               predicates:
                 - Path=/api/users/**
 
+            - id: order-service
+              uri: http://order-service:8082
+              predicates:
+                - Path=/api/orders/**
+
+            - id: payment-service
+              uri: http://payment-service:8083
+              predicates:
+                - Path=/api/payments/**
+
+            - id: registration
+              uri: no://op
+              predicates:
+                - Path=/api/registrations/**
+
 logging:
   level:
     org.springframework.web: DEBUG
     org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always

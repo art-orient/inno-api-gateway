@@ -7,6 +7,10 @@ services:
     url: http://auth-service:8081
   user:
     url: http://user-service:8080
+  order:
+    url: http://order-service:8082
+  payment:
+    url: http://payment-service:8083
 
 logging:
   level:
